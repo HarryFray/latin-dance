@@ -51,36 +51,48 @@ const QUERY = gql`
   }
 `;
 
+const NAV_HEIGHT = 48;
+
 const StyledApp = styled.main`
   .navigation {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     background-color: #f5f5f5;
-    padding: 12px 24px;
+    padding: 12px 0;
+    height: ${NAV_HEIGHT}px;
     width: 100%;
+    position: fixed;
 
-    .link {
-      margin-left: 24px;
+    .links {
+      position: fixed;
+      display: flex;
+      padding-right: 24px;
+      z-index: 1;
 
-      :hover {
-        cursor: pointer;
+      .link {
+        margin-left: 24px;
+
+        :hover {
+          cursor: pointer;
+        }
       }
     }
-  }
 
-  .heading {
-    width: 100%;
-    text-align: center;
-    padding: 24px;
+    .heading {
+      width: 100%;
+      position: absolute;
+      text-align: center;
+    }
   }
 
   .content {
     display: flex;
     align-items: start;
     justify-content: center;
-    height: 100vh;
+    height: calc(100vh - ${NAV_HEIGHT}px);
     width: 100vw;
+    padding-top: ${NAV_HEIGHT}px;
 
     .chat,
     .blog {
@@ -114,7 +126,7 @@ const StyledApp = styled.main`
 
           :hover {
             cursor: pointer;
-            border: 1px solid #f5f5f5;
+            border: 1px solid grey;
           }
 
           img {
@@ -141,10 +153,12 @@ const Home = ({ posts }: Posts): JSX.Element => {
       </Head>
       <StyledApp className={cx(styles.main, inter.className)}>
         <nav className="navigation">
-          <div className="link">Blog</div>
-          <div className="link">Chat</div>
+          <h1 className="heading">Latin Dance</h1>
+          <div className="links">
+            <div className="link">Blog</div>
+            <div className="link">Chat</div>
+          </div>
         </nav>
-        <h1 className="heading">Latin Dance</h1>
         <div className="content">
           <div className="blog">
             <h2 className="title">Blog</h2>
