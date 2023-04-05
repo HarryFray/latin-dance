@@ -51,6 +51,7 @@ const QUERY = gql`
   }
 `;
 
+// TODO: BREAK OUT INTO GLOBAL THEME CONFIG FILE
 const NAV_HEIGHT = 48;
 
 const StyledApp = styled.main`
