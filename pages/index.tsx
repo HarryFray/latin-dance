@@ -44,7 +44,32 @@ const QUERY = gql`
 `;
 
 const StyledApp = styled.main`
-  padding: 40px;
+  .navigation {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 12px 24px;
+    width: 100%;
+
+    .link {
+      margin-left: 24px;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+
+    padding: 40px;
+    height: 100vh;
+    width: 100vw;
+  }
 `;
 
 const Home = ({ posts }: Posts): JSX.Element => {
@@ -57,7 +82,13 @@ const Home = ({ posts }: Posts): JSX.Element => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <StyledApp className={cx(styles.main, inter.className)}>
-        <h1 className="text-6xl text-blue-600 md:text-blue-600">Latin Dance</h1>
+        <nav className="navigation">
+          <div className="link">Blog</div>
+          <div className="link">Chat</div>
+        </nav>
+        <div className="content">
+          <h1>Latin Dance</h1>
+        </div>
       </StyledApp>
     </>
   );
