@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { GraphQLClient, gql } from "graphql-request";
 import { Inter } from "next/font/google";
+import cx from "classnames";
+
 import styles from "dance/styles/Home.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -9,9 +11,16 @@ const graphcms = new GraphQLClient(
   process?.env?.REACT_APP_HYGRAPH_ENDPOINT ?? ""
 );
 
+// TODO: GENERATE TYPES FROM GRAPHQL SCHEMA
 type Post = {
   id: string;
   title: string;
+  content: {
+    html: string;
+  };
+  author: {
+    name: string;
+  };
 };
 
 type Posts = {
@@ -23,6 +32,12 @@ const QUERY = gql`
     posts {
       id
       title
+      content {
+        html
+      }
+      author {
+        name
+      }
     }
   }
 `;
@@ -36,8 +51,8 @@ const Home = ({ posts }: Posts): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <h1 className={inter.className}>Latin Dance</h1>
+      <main className={cx(styles.main, inter.className)}>
+        <h1 className="text-6xl text-blue-600 md:text-blue-600">Latin Dance</h1>
       </main>
     </>
   );
