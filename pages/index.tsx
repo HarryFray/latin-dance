@@ -2,6 +2,7 @@ import Head from "next/head";
 import { GraphQLClient, gql } from "graphql-request";
 import { Inter } from "next/font/google";
 import cx from "classnames";
+import styled from "styled-components";
 
 import styles from "dance/styles/Home.module.css";
 
@@ -42,6 +43,10 @@ const QUERY = gql`
   }
 `;
 
+const StyledApp = styled.main`
+  padding: 40px;
+`;
+
 const Home = ({ posts }: Posts): JSX.Element => {
   console.log(posts);
   return (
@@ -51,9 +56,9 @@ const Home = ({ posts }: Posts): JSX.Element => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={cx(styles.main, inter.className)}>
+      <StyledApp className={cx(styles.main, inter.className)}>
         <h1 className="text-6xl text-blue-600 md:text-blue-600">Latin Dance</h1>
-      </main>
+      </StyledApp>
     </>
   );
 };
