@@ -6,8 +6,17 @@ import styles from "dance/styles/Home.module.css";
 const inter = Inter({ subsets: ["latin"] });
 
 const graphcms = new GraphQLClient(
-  "https://api-us-east-1-shared-usea1-02.hygraph.com/v2/clg12k02a86tw01uie0k5a83b/master"
+  process?.env?.REACT_APP_HYGRAPH_ENDPOINT ?? ""
 );
+
+type Post = {
+  id: string;
+  title: string;
+};
+
+type Posts = {
+  posts: Post[] | [];
+};
 
 const QUERY = gql`
   {
@@ -18,7 +27,7 @@ const QUERY = gql`
   }
 `;
 
-const Home = ({ posts }) => {
+const Home = ({ posts }: Posts): JSX.Element => {
   console.log(posts);
   return (
     <>
@@ -35,12 +44,23 @@ const Home = ({ posts }) => {
 };
 
 export async function getStaticProps() {
-  const { posts } = await graphcms.request(QUERY);
-  return {
-    props: {
-      posts,
-    },
-  };
+  try {
+    const { posts }: Posts = await graphcms.request(QUERY);
+
+    return {
+      props: {
+        posts,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      props: {
+        posts: [],
+      },
+    };
+  }
 }
 
 export default Home;
